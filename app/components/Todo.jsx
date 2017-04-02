@@ -6,11 +6,10 @@ const Todo = React.createClass({
     const {text, id} = this.props;
     return (
       <div>
-        {id}. {text}        
+        {text}
       </div>
     );
   }
 });
 
 module.exports = Todo
-//<li >id: {todo.id}  text: {todo.text}</li>
