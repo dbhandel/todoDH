@@ -11,7 +11,7 @@ describe('AddTodo', () => {
     expect(AddTodo).toExist();
   });
 
-  it('submit prop should use the passed down fn and be called with valid text', () => {
+  it('should use the passed down fn and be called with valid text', () => {
     let spy = expect.createSpy();
     let addTodo = TestUtils.renderIntoDocument(<AddTodo submit={spy}/>);
     let $el = $(React.findDOMNode(addTodo));
@@ -21,7 +21,7 @@ describe('AddTodo', () => {
     expect(spy).toHaveBeenCalled();
     expect(spy).toHaveBeenCalledWith('feed cat');
   });
-  it('submit prop should use the passed down fn but not be called with invalid text', () => {
+  it('submit use the passed down fn but not be called with invalid text', () => {
     let spy = expect.createSpy();
     let addTodo = TestUtils.renderIntoDocument(<AddTodo submit={spy}/>);
     let $el = $(React.findDOMNode(addTodo));
