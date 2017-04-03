@@ -19,6 +19,12 @@ describe('Todo', () => {
     };
     let spy = expect.createSpy();
     let todo = TestUtils.renderIntoDocument(<Todo {...todoData} onToggle={spy}/>)
+
+    //or these alternatives work
+    //let todo = TestUtils.renderIntoDocument(<Todo  onToggle={spy}/>)
+    //todo.setState(todoData);
+    //todo.props.todoData = todoData;
+    
     let $el = $(React.findDOMNode(todo));
     TestUtils.Simulate.click($el[0]);
 
