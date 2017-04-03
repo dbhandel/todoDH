@@ -9,7 +9,7 @@ const TodoList = React.createClass({
       const {todos} = this.props;
       return todos.map((todo) => {
         return (
-          <Todo key={todo.id} {...todo}/>
+          <Todo key={todo.id} {...todo} onToggle={this.props.onToggle} checked={todo.completed}/>
         );
       });
     };
