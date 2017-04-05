@@ -4,7 +4,9 @@ module.exports = {
   setTodos: (todos) => {
     if($.isArray(todos)) {
       //localstorage caan only store strings
-      localStorage.setItem('todos', JSON.stringify(todos));
+      if($.isArray(todos)) {
+        localStorage.setItem('todos', JSON.stringify(todos));
+      }
       return todos //so we don't return undefined if setTodos fails
     }
   },
