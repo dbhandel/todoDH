@@ -24,4 +24,12 @@ describe('TodoList', () => {
     expect($todos).toBe(3);
     expect(expected.length).toBe(todoArray.length);
   });
+
+  it('should render no todos message if there are no todos', () => {
+    let todoArray = [];
+    let todoList = TestUtils.renderIntoDocument(<TodoList todos={todoArray}/>)
+    let $el = $(React.findDOMNode(todoList));
+
+    expect($el.find('.container__message').length).toBe(1);
+  });
 });
