@@ -34,8 +34,12 @@ const TodoApp = React.createClass({
 
   handleAddTodo(text) {
     this.setState({
-      todos: [...this.state.todos, {id: uuid(), text, completed: false,
-        createdAt: moment().unix()}]
+      todos: [...this.state.todos, {
+        id: uuid(),
+        text,
+        completed: false,
+        createdAt:
+         moment().unix()}]
     });
   },
   handleSearch(showCompleted, searchText) {

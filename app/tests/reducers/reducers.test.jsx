@@ -1,6 +1,9 @@
 const expect = require('expect');
-const  reducers =require('reducers');
+const moment = require('moment');
 const df = require('deep-freeze-strict'); //recursively Object.freeze() on objects and functions to ensure that our reducers are pure functions. Only useful for testing.
+
+const  reducers =require('reducers');
+
 
 describe('reducers', () => {
   describe('searchTextReducer', () => {
@@ -25,4 +28,45 @@ describe('reducers', () => {
       expect(res).toEqual(true);
     });
   });
-})
+
+  describe('todosReducer', () => {
+    it('should add a new todo with the new text', () => {
+      let action = {
+        type: 'ADD_TODO',
+        text: 'walk the dog'
+      };
+      let res = reducers.todosReducer(df([]), df(action));
+
+      expect(res.length).toBe(1);
+      expect(res[0].text).toBe(action.text);
+    });
+
+    it('should flip the completion of a todo', () => {
+      let action = {
+        type: 'TOGGLE_TODO',
+        id: 1
+      };
+      let todos = [
+        {
+          id: 1,
+          text: 'hello world',
+          completed: false,
+          createdAt: moment().unix(),
+          completedAt: null
+        },
+        {
+          id: 2,
+          text: 'goodbye world',
+          completed: false,
+          createdAt: moment().unix(),
+          completedAt: null
+        }
+      ];
+
+      let res = reducers.todosReducer(df(todos), df(action));
+
+      expect(res[0].completed).toEqual(true);
+      expect(res[0].completedAt).toBeA('number');
+    });
+  });
+});
