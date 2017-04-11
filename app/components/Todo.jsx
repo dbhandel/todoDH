@@ -11,7 +11,7 @@ const Todo = React.createClass({
       let timestamp = completedAt || createdAt;
 
       return message + moment.unix(timestamp).format('MMM Do, YYYY @ h:mm a');
-    };
+    }; 
     return (
       <div className={todoClassName} onClick={() => {
         this.props.onToggle(id)
