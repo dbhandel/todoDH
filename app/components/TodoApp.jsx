@@ -1,8 +1,12 @@
 const React = require('react');
 const uuid = require('node-uuid');
 const moment = require('moment');
-const TodoList = require('TodoList');
-const AddTodo = require('AddTodo');
+
+//const TodoList = require('TodoList');
+import TodoList from 'TodoList';
+
+import AddTodo from 'AddTodo';
+
 const TodoSearch = require('TodoSearch');
 const TodoAPI = require('TodoAPI');
 
@@ -15,17 +19,6 @@ const TodoApp = React.createClass({
       createdAt: moment().unix(),
       completedAt: null
     };
-  },
-
-  handleToggle(id) {
-    let updatedTodos = this.state.todos.map((todo) => {
-      if(todo.id === id) {
-        todo.completed = !todo.completed
-        todo.completedAt = todo.completed ? moment().unix() : null
-      }
-      return todo
-    });
-    this.setState({ todos: updatedTodos});
   },
 
   componentDidUpdate() {
@@ -59,7 +52,7 @@ const TodoApp = React.createClass({
             <div className='container'>
               <h1 className='page-title'>Todo App</h1>
               <TodoSearch onSearch={this.handleSearch}/>
-              <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
+              <TodoList/>
               <AddTodo submit={this.handleAddTodo} />
             </div>
           </div>

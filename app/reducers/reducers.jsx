@@ -39,6 +39,8 @@ export const todosReducer = (state = [], action) => {
           var newCompleted = !newCompleted;
           var newCompletedAt;
           newCompleted ? newCompletedAt = moment().unix() : newCompletedAt = null;
+        } else {
+          return todo;
         }
         return {
           ...todo, completed: newCompleted, completedAt: newCompletedAt

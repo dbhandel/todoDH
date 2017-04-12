@@ -1,33 +1,40 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const TestUtils = require('react-addons-test-utils');
-const expect = require('expect');
-const $ = require('jQuery');
+var React = require('react');
+var ReactDOM = require('react-dom');
+var TestUtils = require('react-addons-test-utils');
+var expect = require('expect');
+var $ = require('jquery');
 
-const AddTodo = require('AddTodo');
+import * as actions from 'actions';
+var {AddTodo} = require('AddTodo');
 
 describe('AddTodo', () => {
   it('should exist', () => {
     expect(AddTodo).toExist();
   });
 
-  it('should use the passed down fn and be called with valid text', () => {
-    let spy = expect.createSpy();
-    let addTodo = TestUtils.renderIntoDocument(<AddTodo submit={spy}/>);
-    let $el = $(React.findDOMNode(addTodo));
-    addTodo.refs.newTodoInput.value = 'feed cat';
+  it('should dispatch ADD_TODO when valid todo text', () => {
+    var todoText = 'Check mail';
+    var action = actions.addTodo(todoText);
 
+    var spy = expect.createSpy();
+    var addTodo = TestUtils.renderIntoDocument(<AddTodo dispatch={spy}/>);
+    var $el = $(ReactDOM.findDOMNode(addTodo));
+
+    addTodo.refs.todoText.value = todoText;
     TestUtils.Simulate.submit($el.find('form')[0]);
-    expect(spy).toHaveBeenCalled();
-    expect(spy).toHaveBeenCalledWith('feed cat');
+
+    expect(spy).toHaveBeenCalledWith(action);
   });
-  it('submit use the passed down fn but not be called with invalid text', () => {
-    let spy = expect.createSpy();
-    let addTodo = TestUtils.renderIntoDocument(<AddTodo submit={spy}/>);
-    let $el = $(React.findDOMNode(addTodo));
-    addTodo.refs.newTodoInput.value = '';
 
+  it('should not dispatch ADD_TODO when invalid todo text', () => {
+    var todoText = '';
+    var spy = expect.createSpy();
+    var addTodo = TestUtils.renderIntoDocument(<AddTodo dispatch={spy}/>);
+    var $el = $(ReactDOM.findDOMNode(addTodo));
+
+    addTodo.refs.todoText.value = todoText;
     TestUtils.Simulate.submit($el.find('form')[0]);
+
     expect(spy).toNotHaveBeenCalled();
   });
 });
