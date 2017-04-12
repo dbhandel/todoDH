@@ -68,5 +68,26 @@ describe('reducers', () => {
       expect(res[0].completed).toEqual(true);
       expect(res[0].completedAt).toBeA('number');
     });
+
+    it('should add existing todos', () => {
+      let todos = [
+        {
+          id: 1,
+          text: 'huh',
+          completed: false,
+          completedAt: null,
+          createdAt: 33000
+        }
+      ];
+      let action = {
+        type: 'ADD_TODOS',
+        todos
+      };
+
+      let res = reducers.todosReducer(df([]), df(action));
+
+      expect(res.length).toEqual(1);
+      expect(res[0]).toEqual(todos[0]);
+    })
   });
 });

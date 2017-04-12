@@ -8,11 +8,16 @@ const TodoApp = require('TodoApp');
 
 const actions = require('actions');
 const store = require('configureStore').configure();
-store.dispatch(actions.addTodo('clean the yard'));
-store.dispatch(actions.setSearchText('yard'));
-store.dispatch(actions.toggleShowCompleted());
+const TodoAPI = require('TodoAPI');
 
-console.log('current state---->  ', store.getState());
+store.subscribe(() => {
+  let state = store.getState();
+  console.log('New state---->  ', state);
+  TodoAPI.setTodos(state.todos);
+});
+
+const initialTodos = TodoAPI.getTodos();
+store.dispatch(actions.addTodos(initialTodos));
 
 // Load foundation
 $(document).foundation();
